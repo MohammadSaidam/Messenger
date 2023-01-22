@@ -19,6 +19,7 @@
 		35822397297D55800022FE2A /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35822396297D55800022FE2A /* VideoPlayerViewController.swift */; };
 		35822399297D55930022FE2A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35822398297D55930022FE2A /* ProfileViewController.swift */; };
 		3582239B297D55B60022FE2A /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582239A297D55B60022FE2A /* NewConversationViewController.swift */; };
+		3582239D297D56B70022FE2A /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3582239C297D56B70022FE2A /* TestViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		35822396297D55800022FE2A /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		35822398297D55930022FE2A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3582239A297D55B60022FE2A /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
+		3582239C297D56B70022FE2A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		3582238D297D54840022FE2A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3582239C297D56B70022FE2A /* TestViewController.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3582239D297D56B70022FE2A /* TestViewController.swift in Sources */,
 				35822391297D551E0022FE2A /* LoginViewController.swift in Sources */,
 				35822393297D55320022FE2A /* RegisterViewController.swift in Sources */,
 				3582237B297D530F0022FE2A /* ConversationViewController.swift in Sources */,
