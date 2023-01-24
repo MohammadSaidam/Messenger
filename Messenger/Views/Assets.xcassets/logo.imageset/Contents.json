@@ -1,17 +1,34 @@
 {
   "images" : [
     {
-      "filename" : "messenger.png",
+      "filename" : "icons8-facebook-messenger-50(@1x).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "icons8-facebook-messenger-100(@2x).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "icons8-facebook-messenger-150(@3x).png",
       "idiom" : "universal",
       "scale" : "3x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "1x",
+      "width-class" : "compact"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x",
+      "width-class" : "compact"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "width-class" : "compact"
     }
   ],
   "info" : {
