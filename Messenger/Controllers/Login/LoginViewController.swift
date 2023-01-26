@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,UITextFieldDelegate {
     private var scrollView:UIScrollView = {
         var scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -75,6 +75,7 @@ class LoginViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
                                                             style: .done, target: self,
                                                             action: #selector(DidTapRegister))
+        logInButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
         scrollView.addSubview(emailFeild)
@@ -104,6 +105,28 @@ class LoginViewController: UIViewController {
                                    y:passwordField.bottom+20 ,
                                    width: scrollView.width-60,
                                    height: 50)
+        emailFeild.delegate = self
+        passwordField.delegate = self
+    }
+    
+    @objc private  func loginButtonTapped(){
+        // hidden kwyboard when click login button
+        emailFeild.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        
+        
+        guard let email = emailFeild.text,let passsword = passwordField.text,
+              !email.isEmpty ,!passsword.isEmpty , passsword.count>=6 else{
+            alertUserLoginError()
+            return
+        }
+    }
+    //Firebase login
+    func alertUserLoginError(){
+        let alert = UIAlertController(title: "Oops!", message: "Please enter all information to log in", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel,handler: nil))
+        present(alert,animated: true)
+        
     }
     // This function that push RegisterViewController
     @objc private func DidTapRegister(){
@@ -112,6 +135,14 @@ class LoginViewController: UIViewController {
         vc.title = "Create Account"
         navigationController?.pushViewController(vc, animated: true)
         
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailFeild{
+            passwordField.becomeFirstResponder()
+        }else if textField == passwordField{
+            loginButtonTapped()
+        }
+        return true
     }
     
     
