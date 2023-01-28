@@ -46,6 +46,7 @@
 		358223D0297D58940022FE2A /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 358223CF297D58940022FE2A /* FirebaseRemoteConfigSwift */; };
 		358223D2297D58950022FE2A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 358223D1297D58950022FE2A /* FirebaseStorage */; };
 		358223D4297D58960022FE2A /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 358223D3297D58960022FE2A /* FirebaseStorageCombine-Community */; };
+		35845E732983B598003927D4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35845E722983B598003927D4 /* GoogleService-Info.plist */; };
 		35F6BAAF297FD86F007A842D /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F6BAAE297FD86F007A842D /* Extentions.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,7 @@
 		35822396297D55800022FE2A /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		35822398297D55930022FE2A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3582239A297D55B60022FE2A /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
+		35845E722983B598003927D4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		35F6BAAE297FD86F007A842D /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -133,6 +135,7 @@
 		35822375297D530F0022FE2A /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
+				35845E722983B598003927D4 /* GoogleService-Info.plist */,
 				3582238E297D548E0022FE2A /* Resources */,
 				3582238D297D54840022FE2A /* ViewModels */,
 				3582238C297D54770022FE2A /* Models */,
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35822383297D53110022FE2A /* LaunchScreen.storyboard in Resources */,
+				35845E732983B598003927D4 /* GoogleService-Info.plist in Resources */,
 				35822380297D53110022FE2A /* Assets.xcassets in Resources */,
 				3582237E297D530F0022FE2A /* Main.storyboard in Resources */,
 			);

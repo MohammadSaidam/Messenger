@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController,UITextFieldDelegate {
     
@@ -17,7 +18,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
     }()
     private var imageView :UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(systemName: "person.circle")
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
@@ -164,8 +165,27 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
             alertUserLoginError()
             return
         }
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: passsword) { [weak self] authResult, error in
+            guard let strongSelf = self else{
+                return
+            }
+            
+            guard let result = authResult, error == nil else{
+                let image = UIImage(named: "icons8-cancel-50")
+                self?.customAlert(messege: "Addedd is Failed", image: image)
+                return
+            }
+            let user = result.user
+            let image = UIImage(named: "icons8-done-30")
+            self?.customAlert(messege: "Addedd Successfully", image: image)
+            strongSelf.navigationController?.dismiss(animated: true)
+         
+            
+        }
     }
     //Firebase login
+    
+    
     func alertUserLoginError(){
         let alert = UIAlertController(title: "Oops!", message: "Please enter all information to create a new account.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel,handler: nil))
@@ -238,6 +258,21 @@ extension RegisterViewController:UIImagePickerControllerDelegate,UINavigationCon
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true,completion: nil)
+        
+    }
+    func customAlert(messege:String ,image:UIImage!){
+        let alert = UIAlertController(title: nil , message: nil, preferredStyle: .alert)
+        
+        var imageViewInTitel = UIImageView(image: image)
+        imageViewInTitel.frame = CGRect(x: 120, y: 10, width: 30, height: 30)
+        alert.view.addSubview(imageViewInTitel)
+        alert.view.backgroundColor = .white
+        alert.view.layer.cornerRadius = 10
+        alert.message = "\n \(messege)"
+        present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                alert.dismiss(animated: true, completion: nil)
+            }
         
     }
 }

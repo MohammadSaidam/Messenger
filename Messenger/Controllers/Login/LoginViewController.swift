@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController,UITextFieldDelegate {
     private var scrollView:UIScrollView = {
@@ -120,6 +121,22 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             alertUserLoginError()
             return
         }
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: passsword) { [weak self] authResult, error in
+            guard let strongSelf = self else{
+                return
+            }
+            
+            guard let result = authResult ,error == nil else{
+                let image = UIImage(named: "icons8-cancel-50")
+                self?.customAlert(messege: "Login Failed", image: image)
+                return
+            }
+            let user = result.user
+            let image = UIImage(named: "icons8-done-30")
+            self?.customAlert(messege: "Login Successfully", image: image)
+            strongSelf.navigationController?.dismiss(animated: true,completion: nil)
+            
+        }
     }
     //Firebase login
     func alertUserLoginError(){
@@ -148,4 +165,21 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
     
     
     
+}
+extension LoginViewController{
+    func customAlert(messege:String ,image:UIImage!){
+        let alert = UIAlertController(title: nil , message: nil, preferredStyle: .alert)
+        
+        var imageViewInTitel = UIImageView(image: image)
+        imageViewInTitel.frame = CGRect(x: 120, y: 10, width: 30, height: 30)
+        alert.view.addSubview(imageViewInTitel)
+        alert.view.backgroundColor = .white
+        alert.view.layer.cornerRadius = 10
+        alert.message = "\n \(messege)"
+        present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                alert.dismiss(animated: true, completion: nil)
+            }
+        
+    }
 }
