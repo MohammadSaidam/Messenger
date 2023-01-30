@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import Firebase
 
 class RegisterViewController: UIViewController,UITextFieldDelegate {
     
@@ -23,7 +24,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = UIColor.lightGray.cgColor 
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
         
         
         return imageView
@@ -165,29 +166,42 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
             alertUserLoginError()
             return
         }
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: passsword) { [weak self] authResult, error in
+        DatabaseManager.shared.userExist(email: email, completion: { [weak self] exists in
             guard let strongSelf = self else{
+                
                 return
             }
             
-            guard let result = authResult, error == nil else{
-                let image = UIImage(named: "icons8-cancel-50")
-                self?.customAlert(messege: "Addedd is Failed", image: image)
+            guard !exists else{
+                // User already exists
+                strongSelf.alertUserLoginError(messege: "Looks like a user account for that email address already exists.")
                 return
             }
-            let user = result.user
-            let image = UIImage(named: "icons8-done-30")
-            self?.customAlert(messege: "Addedd Successfully", image: image)
-            strongSelf.navigationController?.dismiss(animated: true)
-         
             
-        }
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: passsword ,completion: {  authResult, error in
+           
+                
+                guard authResult != nil, error == nil else{
+                    let image = UIImage(named: "icons8-cancel-50")
+                    self?.customAlert(messege: "Addedd is Failed", image: image)
+                    return
+                }
+                DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName, lastName: lastName, email: email))
+                let image = UIImage(named: "icons8-done-30")
+                self?.customAlert(messege: "Addedd Successfully", image: image)
+                strongSelf.navigationController?.dismiss(animated: true,completion: nil)
+                
+                
+            })
+            
+        })
+        
     }
     //Firebase login
     
     
-    func alertUserLoginError(){
-        let alert = UIAlertController(title: "Oops!", message: "Please enter all information to create a new account.", preferredStyle: .alert)
+    func alertUserLoginError(messege:String = "Please enter all information to create a new account"){
+        let alert = UIAlertController(title: "Oops!", message: messege, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel,handler: nil))
         present(alert,animated: true)
         
@@ -251,7 +265,7 @@ extension RegisterViewController:UIImagePickerControllerDelegate,UINavigationCon
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true,completion: nil)
         guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as?UIImage else{
-          return
+            return
         }
         self.imageView.image = selectedImage
         
@@ -271,8 +285,8 @@ extension RegisterViewController:UIImagePickerControllerDelegate,UINavigationCon
         alert.message = "\n \(messege)"
         present(alert, animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                alert.dismiss(animated: true, completion: nil)
-            }
+            alert.dismiss(animated: true, completion: nil)
+        }
         
     }
 }

@@ -121,7 +121,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             alertUserLoginError()
             return
         }
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: passsword) { [weak self] authResult, error in
+ 
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: passsword ,completion: { [weak self] authResult, error in
             guard let strongSelf = self else{
                 return
             }
@@ -136,7 +137,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             self?.customAlert(messege: "Login Successfully", image: image)
             strongSelf.navigationController?.dismiss(animated: true,completion: nil)
             
-        }
+        })
     }
     //Firebase login
     func alertUserLoginError(){
